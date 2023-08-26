@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+<style>
+p{
+    color: white
+}
+</style>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+          <img src="{{ asset('images/logo1.png') }}" alt="Mon Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Factures</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Fichiers</a>
+        </li>
+        <li class="nav-item ms-5">
+          <a class="nav-link" href="#">Profil</a>
+        </li>
+        <button class="btn btn-outline-success" href="{{ path('app_logout') }}">Me déconnecter</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<p>je suis dans Home</p>
+{% endblock %}
