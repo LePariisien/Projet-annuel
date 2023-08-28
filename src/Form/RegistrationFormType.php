@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -82,6 +83,55 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
                 'label' => 'Mot de passe'
+            ])
+            ->add('nomtitulaire', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a name',
+                    ]),
+                ],
+                'label' => 'Nom du titulaire'
+            ])
+            ->add('cartnumber', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a cart number',
+                    ]),
+                ],
+                'label' => 'Numéro de la carte'
+            ])
+            ->add('expirationdate', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter expiration date',
+                    ]),
+                ],
+                'label' => 'Date d\' Expiration'
+            ])
+            ->add('numbercvc', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter CVC',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 3,
+                    ]),
+                ],
+                'label' => 'Numéro de CVC'
             ])
         ;
     }

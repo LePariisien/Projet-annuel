@@ -65,6 +65,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'invoiceAddress', targetEntity: Invoice::class, orphanRemoval: true)]
     private Collection $invoicesAddress;
 
+    #[ORM\Column(length: 150)]
+    private ?string $nomtitulaire = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $cartnumber = null;
+
+    #[ORM\Column(length: 5)]
+    private ?string $expirationdate = null;
+
+    #[ORM\Column(length: 3)]
+    private ?string $numbercvc = null;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
@@ -330,6 +342,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $invoicesAddress->setInvoiceAddress(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNomtitulaire(): ?string
+    {
+        return $this->nomtitulaire;
+    }
+
+    public function setNomtitulaire(string $nomtitulaire): static
+    {
+        $this->nomtitulaire = $nomtitulaire;
+
+        return $this;
+    }
+
+    public function getCartnumber(): ?string
+    {
+        return $this->cartnumber;
+    }
+
+    public function setCartnumber(string $cartnumber): static
+    {
+        $this->cartnumber = $cartnumber;
+
+        return $this;
+    }
+
+    public function getExpirationdate(): ?string
+    {
+        return $this->expirationdate;
+    }
+
+    public function setExpirationdate(string $expirationdate): static
+    {
+        $this->expirationdate = $expirationdate;
+
+        return $this;
+    }
+
+    public function getNumbercvc(): ?string
+    {
+        return $this->numbercvc;
+    }
+
+    public function setNumbercvc(string $numbercvc): static
+    {
+        $this->numbercvc = $numbercvc;
 
         return $this;
     }
