@@ -4,40 +4,44 @@
 {% endblock %}
 
 {% block body %}
-<style>
-p{
-    color: white
-}
-</style>
-<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-          <img src="{{ asset('images/logo1.png') }}" alt="Mon Logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Factures</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Fichiers</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Profil</a>
-        </li>
-        <button class="btn btn-outline-success" href="{{ path('app_logout') }}">Me déconnecter</button>
-        </li>
-      </ul>
+	{% include "_partials/_nav.html.twig" %}
+	<style>
+		h1 {
+			color: white
+		}
+	</style>
+	{% if app.user %}
+		<div class="mb-3">
+			<h1>Vous êtes connecté en tant que
+			{{ app.user.userIdentifier }}</h1>
+		</div>
+	{% endif %}
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-3" style="margin-top: 120px;">
+                <a href="#">
+                    {# <a href="{{ path('app_facture') }}">#}
+                    <div class="card bg-white bg-opacity-50 border-0 rounded-3 shadow p-4 text-center d-flex flex-row align-items-center">
+                        <img src="{{ asset('images/invoice.png') }}" alt="Invoice Logo" style="width: 50px;">                        
+                        <h4 class="card-title" style="margin-top: 10px; margin-left: 20px;">Facture</h4>
+                    </div>
+            </div>
+            <div class="col-md-3" style="margin-left: 0px; margin-top: 80px;">
+                <a href="#">
+                    <div class="card bg-white bg-opacity-50 border-0 rounded-3 shadow p-4 text-center d-flex flex-row align-items-center">
+                        <img src="{{ asset('images/file.png') }}" alt="File Logo" style="width: 50px;">
+                        <h4 class="card-title" style="margin-top: 10px; margin-left: 20px;">Fichiers</h4>
+                    </div>
+            </div>
+            <div class="col-md-3" style="margin-top: 80px;">
+                <a href="#">
+                    <div class="card bg-white bg-opacity-50 border-0 rounded-3 shadow p-4 text-center d-flex flex-row align-items-center">
+                        <img src="{{ asset('images/shopping-cart.png') }}" alt="Shopping Logo" style="width: 50px;">
+                        <h4 class="card-title">Acheter stockage</h4>
+                    </div>
+            </div>
+        </div>
     </div>
-  </div>
-</nav>
-<p>je suis dans Home</p>
+
+
 {% endblock %}
