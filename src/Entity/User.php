@@ -71,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20)]
     private ?string $cartnumber = null;
 
-    #[ORM\Column(length: 5)]
+    #[ORM\Column(length: 7)]
     private ?string $expirationdate = null;
 
     #[ORM\Column(length: 3)]
