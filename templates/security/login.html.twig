@@ -22,6 +22,15 @@
 					{% if error %}
 						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
+					{% for message in app.flashes('success') %}
+                        <div 
+                            style="color: green;
+                                border: 2px green solid;
+                                text-align: center;
+                                padding: 5px;margin-bottom: 10px;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
 
 				    <h1>Connexion</h1>
 				    <p>Bienvenue sur FilesOrganisation</p>

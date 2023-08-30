@@ -84,55 +84,55 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => 'Mot de passe'
             ])
-            ->add('nomtitulaire', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a name',
-                    ]),
-                ],
-                'label' => 'Nom du titulaire'
-            ])
-            ->add('cartnumber', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a cart number',
-                    ]),
-                ],
-                'label' => 'Numéro de la carte'
-            ])
-            ->add('expirationdate', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter expiration date',
-                    ]),
-                ],
-                'label' => 'Date d\' Expiration'
-            ])
-            ->add('numbercvc', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter CVC',
-                    ]),
-                    new Length([
-                        'min' => 3,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 3,
-                    ]),
-                ],
-                'label' => 'Numéro de CVC'
-            ])
+            // ->add('nomtitulaire', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please enter a name',
+            //         ]),
+            //     ],
+            //     'label' => 'Nom du titulaire'
+            // ])
+            // ->add('cartnumber', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please enter a cart number',
+            //         ]),
+            //     ],
+            //     'label' => 'Numéro de la carte'
+            // ])
+            // ->add('expirationdate', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please enter expiration date',
+            //         ]),
+            //     ],
+            //     'label' => 'Date d\' Expiration'
+            // ])
+            // ->add('numbercvc', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please enter CVC',
+            //         ]),
+            //         new Length([
+            //             'min' => 3,
+            //             'minMessage' => 'Your password should be at least {{ limit }} characters',
+            //             // max length allowed by Symfony for security reasons
+            //             'max' => 3,
+            //         ]),
+            //     ],
+            //     'label' => 'Numéro de CVC'
+            // ])
         ;
     }
 

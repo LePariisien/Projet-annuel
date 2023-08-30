@@ -51,9 +51,9 @@ class RegistrationController extends AbstractController
             $mailer->send($email);
 
             // return $userAuthenticator->authenticateUser(
-            //     $user,
-            //     $authenticator,
-            //     $request
+            //      $user,
+            //      $authenticator,
+            //      $request
             // );
 
             return $this->redirectToRoute('app_stripe');

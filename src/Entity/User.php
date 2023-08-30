@@ -65,16 +65,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'invoiceAddress', targetEntity: Invoice::class, orphanRemoval: true)]
     private Collection $invoicesAddress;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150,  nullable:true)]
     private ?string $nomtitulaire = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20,  nullable:true)]
     private ?string $cartnumber = null;
 
-    #[ORM\Column(length: 7)]
+    #[ORM\Column(length: 7,  nullable:true)]
     private ?string $expirationdate = null;
 
-    #[ORM\Column(length: 3)]
+    #[ORM\Column(length: 3,  nullable:true)]
     private ?string $numbercvc = null;
 
     public function __construct()

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profil
+{% endblock %}
+{% block body %}
+    <style>
+		/* Changer la couleur du texte en blanc */
+		h1,
+		p,
+		form, fieldset {
+			color: white;
+		}
+    </style>
+	{% include "_partials/_nav.html.twig" %}
+    <h1>Mon Profil</h1>
+
+    {{ form_start(profileForm) }}
+    <fieldset class="mb-3">
+    <legend>Mon Identité</legend>
+    {{ form_row(profileForm.firstName) }}
+    {{ form_row(profileForm.lastName) }}
+    {{ form_row(profileForm.email) }}
+    {{ form_row(profileForm.phone_number) }}
+    {{ form_row(profileForm.address) }}
+    </fieldset>
+    <button type="submit" class="btn btn-primary mt-3">Mettre à jour</button>
+    {{ form_end(profileForm) }}
+
+    {# {% if app.flashes('success') %}
+        <div class="alert alert-success mt-3">
+            {{ app.flashes('success')[0] }}
+        </div>
+    {% endif %} #}
+{% endblock %}

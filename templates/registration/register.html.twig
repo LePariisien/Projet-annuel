@@ -36,13 +36,13 @@
 				{{ form_row(registrationForm.plainPassword, {
                     label: 'Mot de passe'}
                 ) }}
-					<fieldset class="mb-3 mt-3">
+					{# <fieldset class="mb-3 mt-3">
                         <legend>Paiement</legend>
 						{{ form_row(registrationForm.nomtitulaire) }}
                         {{ form_row(registrationForm.cartnumber) }}
                         {{ form_row(registrationForm.expirationdate) }}
 						{{ form_row(registrationForm.numbercvc) }}
-					</fieldset>
+					</fieldset> #}
 				{{ form_row(registrationForm.rgpdConsent) }}
 					<button type="submit" class="btn btn-primary btn-lg my-3">S'incrire</button>
 				{{ form_end(registrationForm) }}
