@@ -50,11 +50,13 @@ class RegistrationController extends AbstractController
 
             $mailer->send($email);
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            // return $userAuthenticator->authenticateUser(
+            //     $user,
+            //     $authenticator,
+            //     $request
+            // );
+
+            return $this->redirectToRoute('app_stripe');
         }
 
         return $this->render('registration/register.html.twig', [
