@@ -36,6 +36,8 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+            
+            $request->getSession()->set('recently_registered_user_id', $user->getId());
             // do anything else you need here, like send an email
             $email = (new TemplatedEmail())
                 ->from('cabinet@architect.com')
