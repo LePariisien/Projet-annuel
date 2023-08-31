@@ -17,25 +17,30 @@ class Files
     #[ORM\Column(length: 255)]
     private ?string $fileName = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $height = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable:true)]
+    private ?float $size = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable:true)]
     private ?string $format = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'],  nullable:true)]
     private ?\DateTimeImmutable $uploadDate = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE,  nullable:true)]
     private ?\DateTimeInterface $lastModificationDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'files')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+
+    public function __construct()
+    {
+        $this->uploadDate = new \DateTimeImmutable();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -53,14 +58,14 @@ class Files
         return $this;
     }
 
-    public function getHeight(): ?string
+    public function getSize(): ?float
     {
-        return $this->height;
+        return $this->size;
     }
 
-    public function setHeight(string $height): static
+    public function setSize(float $size): static
     {
-        $this->height = $height;
+        $this->size = $size;
 
         return $this;
     }

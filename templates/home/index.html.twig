@@ -10,7 +10,7 @@
 			color: white
 		}
 	</style>
-	{% if app.user %}
+    {% if app.user %}
 		<div class="mb-3">
 			<h1>Vous êtes connecté en tant que
 			{{ app.user.userIdentifier }}</h1>
@@ -27,7 +27,7 @@
                     </div>
             </div>
             <div class="col-md-3" style="margin-left: 0px; margin-top: 80px;">
-                <a href="#">
+                <a href="{{ path('app_file') }}">
                 {# <a href="{{ path('app_fichier') }}">#}
                     <div class="card bg-white bg-opacity-50 border-0 rounded-3 shadow p-4 text-center d-flex flex-row align-items-center">
                         <img src="{{ asset('images/file.png') }}" alt="File Logo" style="width: 50px;">

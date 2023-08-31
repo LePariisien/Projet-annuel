@@ -18,6 +18,9 @@ framework:
     php_errors:
         log: true
 
+parameters:
+    upload_directory: '%kernel.project_dir%/public/uploads'
+
 when@test:
     framework:
         test: true

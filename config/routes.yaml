@@ -11,3 +11,8 @@ Home:
 Registration:
     path: /inscription
     controller: App\Controller\Registration::register
+
+uploaded_files_ajax:
+    path: '/uploaded-files-ajax'
+    controller: 'App\Controller\FileController::getUploadedFilesAjax'
+    methods: ['GET']
