@@ -58,7 +58,8 @@ class FileController extends AbstractController
             }
         }
         // Fetch the list of uploaded files
-        $uploadedFiles = $entityManager->getRepository(Files::class)->findAll();
+        $user = $security->getUser();
+        $uploadedFiles = $entityManager->getRepository(Files::class)->findBy(['user' => $user]);;
 
         $totalSizeBytes = 0;
 
