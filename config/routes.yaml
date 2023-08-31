@@ -16,3 +16,8 @@ uploaded_files_ajax:
     path: '/uploaded-files-ajax'
     controller: 'App\Controller\FileController::getUploadedFilesAjax'
     methods: ['GET']
+
+app_admin:
+    path: /admin
+    controller: App\Controller\AdminController::adminPage
+    methods: GET
