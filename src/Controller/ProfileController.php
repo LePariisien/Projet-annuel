@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\ProfileFormType;
 use App\Form\DeleteAccountFormType;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,11 +42,13 @@ class ProfileController extends AbstractController
     }
 
     private $tokenStorage;
+    private $mailer;
 
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage, MailerInterface $mailer)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->mailer = $mailer;
     }
 
 
@@ -65,6 +70,9 @@ class ProfileController extends AbstractController
                 $entityManager->remove($user);
                 $entityManager->flush();
 
+                // Envoyez un e-mail de confirmation
+                $this->sendDeleteConfirmationEmail($user->getEmail());
+
                 // Déconnectez automatiquement l'utilisateur après la 
                 $this->tokenStorage->setToken(null);
 
@@ -76,10 +84,22 @@ class ProfileController extends AbstractController
             }
         }
 
+
         // Affichez le formulaire de confirmation
         return $this->render('profile/delete_account.html.twig', [
             'deleteAccountForm' => $form->createView(),
         ]);
+    }
+
+    private function sendDeleteConfirmationEmail($userEmail)
+    {
+        $email3 = (new TemplatedEmail())
+            ->from('cabinet@architect.com')
+            ->to($userEmail)
+            ->subject('Confirmation de suppression de compte')
+            ->htmlTemplate('email/delete.html.twig');
+
+        $this->mailer->send($email3);
     }
 }
 
