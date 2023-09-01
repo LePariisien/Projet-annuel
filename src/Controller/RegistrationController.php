@@ -65,7 +65,7 @@ class RegistrationController extends AbstractController
 
         $mailer->send($email2);
 
-        
+
             // return $userAuthenticator->authenticateUser(
             //      $user,
             //      $authenticator,

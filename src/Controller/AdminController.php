@@ -17,6 +17,8 @@ class AdminController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+
+
     #[Route('/admin', name: 'app_admin')]
     #[IsGranted('ROLE_ADMIN')]
     public function adminPage(): Response
@@ -28,6 +30,17 @@ class AdminController extends AbstractController
         return $this->render('admin/index.html.twig', [
             'users' => $users,
             'totalUsers' => $totalUsers,
+        ]);
+    }
+
+    #[Route('/admin/files', name: 'admin_files')]
+    public function listAllFiles(EntityManagerInterface $entityManager): Response
+    {
+        // Récupérez la liste de tous les utilisateurs et leurs fichiers
+        $users = $entityManager->getRepository(User::class)->findAll();
+
+        return $this->render('admin/list_files.html.twig', [
+            'users' => $users,
         ]);
     }
 }
