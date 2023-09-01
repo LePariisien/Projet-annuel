@@ -2,9 +2,11 @@
 namespace App\Controller;
 
 use App\Entity\Files;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,18 +63,86 @@ class FileController extends AbstractController
         $user = $security->getUser();
         $uploadedFiles = $entityManager->getRepository(Files::class)->findBy(['user' => $user]);;
 
-        $totalSizeBytes = 0;
+        // Calculez l'espace utilisé en ajoutant la taille de chaque fichier
+        $useSpace = 0;
 
         foreach ($uploadedFiles as $file) {
-            $totalSizeBytes += $file->getSize();
+            $useSpace += $file->getSize();
         }
 
-        $totalSizeGigabytes = $totalSizeBytes / (1024 * 1024 * 1024); // Convert to gigabytes
+        $totalSizeGigabytes = $useSpace / (1024 * 1024 * 1024); // Convertir en gigaoctets
 
-        // Pass the uploaded files to the template
+
+        $user = $security->getUser();
+        $user->setUseSpace($totalSizeGigabytes); // Mettez à jour la valeur useSpace pour l'utilisateur
+        $entityManager->persist($user); // Persistez les modifications de l'utilisateur
+        $entityManager->flush();
+        
+        
+        // Passez l'espace utilisé et la limite d'espace au modèle
         return $this->render('file/index.html.twig', [
             'uploadedFiles' => $uploadedFiles,
             'totalSizeGigabytes' => $totalSizeGigabytes,
+            // 'useSpace' => $useSpace,
+            'stockageSpace' => $user->getStockageSpace(), // Limite d'espace depuis l'entité User
         ]);
+    }
+
+    // Route pour la visualisation du fichier
+    #[Route('/file/view/{id}', name: 'app_view_file')]
+    public function viewFile(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $file = $entityManager->getRepository(Files::class)->find($id);
+
+        if (!$file) {
+            throw $this->createNotFoundException('Fichier introuvable');
+        }
+
+        $filePath = $this->getParameter('upload_directory').'/'.$file->getFileName();
+
+        return new BinaryFileResponse($filePath);
+    }
+
+
+    // Route pour le téléchargement du fichier
+    #[Route('/file/download/{id}', name: 'app_download_file')]
+    public function downloadFile(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $file = $entityManager->getRepository(Files::class)->find($id);
+
+        if (!$file) {
+            throw $this->createNotFoundException('Fichier introuvable');
+        }
+
+        $filePath = $this->getParameter('upload_directory').'/'.$file->getFileName();
+
+        return $this->file($filePath);
+    }
+
+
+    // Route pour la suppression du fichier
+    #[Route('/file/delete/{id}', name: 'app_delete_file')]
+    public function deleteFile(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $file = $entityManager->getRepository(Files::class)->find($id);
+
+        if (!$file) {
+            throw $this->createNotFoundException('Fichier introuvable');
+        }
+
+        // Supprimez le fichier du répertoire de téléchargement
+        $filePath = $this->getParameter('upload_directory').'/'.$file->getFileName();
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        // Supprimez l'entité de la base de données
+        $entityManager->remove($file);
+        $entityManager->flush();
+
+        // Ajoutez un message flash de succès
+        $this->addFlash('success', 'Le fichier a été supprimé avec succès.');
+
+        return $this->redirectToRoute('app_file');
     }
 }

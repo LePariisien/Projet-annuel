@@ -10,6 +10,15 @@
 			color: white;
 		}
     </style>
+    {% for message in app.flashes('success') %}
+        <div 
+            style="color: green;
+                border: 2px green solid;
+                text-align: center;
+                padding: 5px;margin-bottom: 10px;">
+            {{ message }}
+        </div>
+    {% endfor %}
 	{% include "_partials/_nav.html.twig" %}
     <h1>Mon Profil</h1>
 
@@ -23,6 +32,7 @@
     {{ form_row(profileForm.address) }}
     </fieldset>
     <button type="submit" class="btn btn-primary mt-3">Mettre à jour</button>
+    <a href="{{ path('app_delete_account') }}" class="btn btn-danger mt-3">Supprimer mon compte</a>
     {{ form_end(profileForm) }}
 
     {# {% if app.flashes('success') %}

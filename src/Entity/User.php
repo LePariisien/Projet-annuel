@@ -47,6 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable:true)]
     private ?int $stockageSpace = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $useSpace = null;
+
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $inscriptionDate = null;
 
@@ -216,6 +219,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStockageSpace(int $stockageSpace): static
     {
         $this->stockageSpace = $stockageSpace;
+
+        return $this;
+    }
+
+    public function getUseSpace(): ?float
+    {
+        return $this->useSpace;
+    }
+
+    public function setUseSpace(?float $useSpace): self
+    {
+        $this->useSpace = $useSpace;
 
         return $this;
     }

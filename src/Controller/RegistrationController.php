@@ -52,6 +52,18 @@ class RegistrationController extends AbstractController
 
             $mailer->send($email);
 
+            $email2 = (new TemplatedEmail())
+            ->from('cabinet@architect.com')
+            ->to($user->getEmail())
+            ->subject('Confirmation de paiement pour 20Go d\'espace de stockage')
+            ->htmlTemplate('email/paiement.html.twig')
+            ->context([
+                'user' => $user
+            ]);
+
+
+
+        $mailer->send($email2);
             // return $userAuthenticator->authenticateUser(
             //      $user,
             //      $authenticator,
